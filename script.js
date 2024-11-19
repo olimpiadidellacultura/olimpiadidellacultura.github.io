@@ -8,12 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
     }
-    // Gestione del quiz logica
-    const form = document.getElementById('quizlogi');
-    const feedback = document.getElementById('feedback');
-    const nextQuizButton = document.getElementById('nextQuiz');
-    const completionImage = document.getElementById('completionImage');
-    const questions = [
+    
+    // Array di domande logica
+    const questionslogi = [
         { id: "question1", correctAnswer: "2/21", name: "probabilita1" },
         { id: "question2", correctAnswer: "3,60 m", name: "altezza_vasca" },
         { id: "question3", correctAnswer: "(A ∩ B)/(A ∩ B ∩ C) ∪ [(A ∩ (C/B)) / (A ∩ C ∩ D)]", name: "insiemi" },
@@ -23,67 +20,89 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: "question7", correctAnswer: "6", name: "pullman" },
         { id: "question8", correctAnswer: "Tra 2000 e 3000", name: "pagine" },
         { id: "question9", correctAnswer: "Silvia abita più vicino alla chiesa che al panificio", name: "silvia" },
-        { id: "question10", correctAnswer: "60 cm", name: "raggio" }
+        { id: "question10", correctAnswer: "60 cm", name: "raggio" },
+        { id: "question11", correctAnswer: "1", name: "test" }
     ];
 
-    let currentQuestionIndex = 0;  // Indice della domanda corrente
+    // Array di domande attualità
+    const questionsatt = [
+        { id: "question16", correctAnswer: "L'Unione Africana", name: "organizzazione" },
+        { id: "question17", correctAnswer: "Con decreto del Presidente della Repubblica su proposta del Presidente del Consiglio", name: "nomina_ministri" },
+        { id: "question18", correctAnswer: "Portogallo", name: "governo" },
+        { id: "question19", correctAnswer: "Passare oltre", name: "pesach" },
+        { id: "question20", correctAnswer: "Denominazione Origine Protetta", name: "dop" }
+    ]
+    
+    // Funzione per gestione quiz
+    function initQuiz(questions, formId, feedbackId, nextQuizButtonId, completionImageId) {
+        const form = document.getElementById(formId);
+        const feedback = document.getElementById(feedbackId);
+        const nextQuizButton = document.getElementById(nextQuizButtonId);
+        const completionImage = document.getElementById(completionImageId);
+        
+        let currentQuestionIndex = 0;  // Indice della domanda corrente
 
-    // Funzione per nascondere tutte le domande e mostrare solo la domanda corrente
-    function showQuestion() {
-        // Nascondi tutte le domande
-        questions.forEach((question) => {
-            const questionElement = document.getElementById(question.id);
-            if (questionElement) {
-                questionElement.style.display = 'none';
+        // Funzione per nascondere tutte le domande e mostrare solo la domanda corrente
+        function showQuestion() {
+            // Nascondi tutte le domande
+            questions.forEach((question) => {
+                const questionElement = document.getElementById(question.id);
+                if (questionElement) {
+                    questionElement.style.display = 'none';
+                }
+            });
+
+            // Mostra solo la domanda corrente
+            const currentQuestion = questions[currentQuestionIndex];
+            const currentQuestionElement = document.getElementById(currentQuestion.id);
+            if (currentQuestionElement) {
+                currentQuestionElement.style.display = 'block';
             }
-        });
 
-        // Mostra solo la domanda corrente
-        const currentQuestion = questions[currentQuestionIndex];
-        const currentQuestionElement = document.getElementById(currentQuestion.id);
-        if (currentQuestionElement) {
-            currentQuestionElement.style.display = 'block';
+            // Resetta il feedback e il pulsante
+            feedback.textContent = '';
+            nextQuizButton.style.display = 'none';  // Nascondi il pulsante "Next Quiz" fino a quando non è necessario
         }
 
-        // Resetta il feedback e il pulsante
-        feedback.textContent = '';
-        nextQuizButton.style.display = 'none';  // Nascondi il pulsante "Next Quiz" fino a quando non è necessario
-    }
-
-    if (form && feedback && nextQuizButton) {
-        // Event listener per il cambiamento delle risposte
-        form.addEventListener('change', (event) => {
-            const currentQuestion = questions[currentQuestionIndex];
-            if (event.target.name === currentQuestion.name) {
-                if (event.target.value === currentQuestion.correctAnswer) {
-                    feedback.textContent = 'Corretto!';
-                    feedback.style.color = 'green';
-                    nextQuizButton.style.display = 'block'; // Mostra il pulsante "Next Quiz"
-                } else {
-                    feedback.textContent = 'Sbagliato. Riprova!';
-                    feedback.style.color = 'red';
-                    nextQuizButton.style.display = 'none'; // Nasconde il pulsante "Next Quiz"
+        if (form && feedback && nextQuizButton) {
+            // Event listener per il cambiamento delle risposte
+            form.addEventListener('change', (event) => {
+                const currentQuestion = questions[currentQuestionIndex];
+                if (event.target.name === currentQuestion.name) {
+                    if (event.target.value === currentQuestion.correctAnswer) {
+                        feedback.textContent = 'Corretto!';
+                        feedback.style.color = 'green';
+                        nextQuizButton.style.display = 'block'; // Mostra il pulsante "Next Quiz"
+                    } else {
+                        feedback.textContent = 'Sbagliato. Riprova!';
+                        feedback.style.color = 'red';
+                        nextQuizButton.style.display = 'none'; // Nasconde il pulsante "Next Quiz"
+                    }
                 }
-            }
-        });
+            });
 
-        // Event listener per il clic sul pulsante "Next Quiz"
-        nextQuizButton.addEventListener('click', (event) => {
-            event.preventDefault(); // Previene il comportamento predefinito del pulsante
+            // Event listener per il clic sul pulsante "Next Quiz"
+            nextQuizButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Previene il comportamento predefinito del pulsante
 
-            currentQuestionIndex++;  // Passa alla domanda successiva
+                currentQuestionIndex++;  // Passa alla domanda successiva
 
-            if (currentQuestionIndex < questions.length) {
-                showQuestion();  // Mostra la domanda successiva
-            } else {
-                feedback.textContent = 'Hai completato il quiz!';
-                form.style.display = 'none'; // Nasconde il form del quiz
-                nextQuizButton.style.display = 'none'; // Nasconde il pulsante "Next Quiz"
-                completionImage.style.display = 'block'; // Mostra l'immagine di completamento
-            }
-        });
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();  // Mostra la domanda successiva
+                } else {
+                    feedback.textContent = 'Hai completato il quiz!';
+                    form.style.display = 'none'; // Nasconde il form del quiz
+                    nextQuizButton.style.display = 'none'; // Nasconde il pulsante "Next Quiz"
+                    completionImage.style.display = 'block'; // Mostra l'immagine di completamento
+                }
+            });
 
-        // Inizializza la visualizzazione della prima domanda
-        showQuestion();
+            // Inizializza la visualizzazione della prima domanda
+            showQuestion();
+        }
     }
+
+    // Inizializza il quiz con l'array delle domande e gli ID degli elementi HTML
+    initQuiz(questionslogi, 'quizlogi', 'feedback', 'nextQuiz', 'completionImage');
+    initQuiz(questionsatt, 'quizatt', 'feedback', 'nextQuiz', 'completionImage');
 });
