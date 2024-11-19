@@ -9,8 +9,6 @@ body {
     background-color: #e0f7fa;
     color: #00695c;
     text-align: center; /* Centra il testo */
-    margin-bottom: 200px; /* Aggiunge 100px di spazio in fondo alla pagina */
-    margin-top: 200px;
 }
 
 h1 {
@@ -32,7 +30,8 @@ p {
     margin-bottom: 20px; /* Spazio sotto l'immagine */
 }
 
-#button_logi {
+.home_button {
+    width: 300px;
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1em;
@@ -41,62 +40,6 @@ p {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
-
-#button_att {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#button_musi {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#button_sport{
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#button_info {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#button_cultgen {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
-    color: #fff;
-    background-color: #00796b;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
 }
 
 form {
@@ -130,5 +73,5 @@ label {
 }
 
 button:hover {
-    background-color: #00ff22;
+    background-color: #00443c;
 }
