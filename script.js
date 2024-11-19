@@ -1,48 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded');
-
-    // Gestione dei pulsanti di navigazione
-    const buttonLogi = document.getElementById('button_logi');
-    if (buttonLogi) {
-        buttonLogi.addEventListener('click', () => {
-            window.location.href = 'logica.html';
-        });
-    }
-
-    const buttonAtt = document.getElementById('button_att');
-    if (buttonAtt) {
-        buttonAtt.addEventListener('click', () => {
-            window.location.href = 'attualità.html';
-        });
-    }
-
-    const buttonMusi = document.getElementById('button_musi');
-    if (buttonMusi) {
-        buttonMusi.addEventListener('click', () => {
-            window.location.href = 'musica.html';
-        });
-    }
-
-    const buttonSport = document.getElementById('button_sport');
-    if (buttonSport) {
-        buttonSport.addEventListener('click', () => {
-            window.location.href = 'sport.html';
-        });
-    }
-
-    const buttonInfo = document.getElementById('button_info');
-    if (buttonInfo) {
-        buttonInfo.addEventListener('click', () => {
-            window.location.href = 'informatica.html';
-        });
-    }
-
-    const buttonCultgen = document.getElementById('button_cultgen');
-    if (buttonCultgen) {
-        buttonCultgen.addEventListener('click', () => {
-            window.location.href = 'culturaGenerale.html';
-        });
-    }
+    
     // Funzione per tornare alla home
     const homeButton = document.getElementById("homeButton");
     if (homeButton) {
