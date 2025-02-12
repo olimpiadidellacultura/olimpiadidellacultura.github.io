@@ -100,8 +100,8 @@ showDomanda();
 function showDomanda() {
   result.style.display="none";
   if(questions.length==0) {
-    d1.innerHTML="Non ancora disponibile";
     answerButton.style.display="none";
+    d1.innerHTML="Non ancora disponibile";
     return;
   }
   else if(countDomanda==questions.length) {
