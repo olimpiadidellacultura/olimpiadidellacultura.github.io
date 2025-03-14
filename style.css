@@ -24,10 +24,16 @@ body::before {
 
 .content {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   z-index: 2;
   text-align: center;
   padding: 20px;
   transition: opacity 0.5s ease-in;
+  width: 100%;
+  max-width: 1200px;
 }
 
 h1 {
@@ -48,6 +54,7 @@ h1 {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .time {
@@ -109,6 +116,110 @@ h1 {
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
   z-index: 9999;
+}
+
+.weather-section {
+  background: rgba(40, 75, 234, 0.268);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+  max-width: 600px;
+  width: 100%;
+  border: 1px solid rgba(36, 74, 245, 0.247);
+  animation: weatherEntrance 0.8s ease-out 1s forwards;
+}
+
+.weather-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(2, 234, 246, 0.797);
+}
+
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-content: center;
+}
+
+.weather-day {
+  background: rgba(15, 191, 227, 0.273);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.weather-date {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.weather-icon-tolfa {
+  width: 48px;
+  height: 48px;
+  margin: 0.5rem auto;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: drop-shadow(2px 2px 3px rgba(255, 255, 255, 0.37));
+}
+
+.weather-temp-tolfa {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0.3rem 0;
+}
+
+.weather-condition {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+.weather-error {
+  text-align: center;
+  color: #ff6b6b;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+@keyframes weatherEntrance {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .weather-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  .weather-section {
+    width: 90%;
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+
+  .weather-icon-tolfa {
+    width: 40px;
+    height: 40px;
+  }
+
+  .weather-temp-tolfa {
+    font-size: 1.1rem;
+  }
 }
 
 @keyframes spin {
