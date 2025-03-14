@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCT practice exams</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FINALI NAZIONALI OCT XVI</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Importa i font da Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
-    <body>
-        <img src="OCTCompatto_Blu.png" alt="Descrizione dell'immagine" id="topImage">   
-        <h1>Benvenuto</h1>
-        <p>Esercitati qui con i quiz degli anni passati.</p>
-        <a><button class="button" id="button_logi" onclick="toQuestions(1)">LOGICA</button></a>
-        <a><button class="button" id="button_att" onclick="toQuestions(2)">ATTUALITÀ</button></a>
-        <a><button class="button" id="button_musi" onclick="toQuestions(3)">MUSICA</button></a>
-        <a><button class="button" id="button_sport" onclick="toQuestions(4)">SPORT</button></a>
-        <a><button class="button" id="button_info" onclick="toQuestions(5)">INFORMATICA</button></a>
-        <a><button class="button" id="button_cultgen" onclick="toQuestions(6)">CULTURA GENERALE</button></a>
-        <script src="homeScript.js"></script>
-    </body>
+<body>
+  <div class="content">
+    <h1>FINALI NAZIONALI OCT XVI</h1>
+    <div class="countdown">
+      <div class="time">
+        <span id="days">0</span>
+        <div class="label">Giorni</div>
+      </div>
+      <div class="time">
+        <span id="hours">0</span>
+        <div class="label">Ore</div>
+      </div>
+      <div class="time">
+        <span id="minutes">0</span>
+        <div class="label">Minuti</div>
+      </div>
+      <div class="time">
+        <span id="seconds">0</span>
+        <div class="label">Secondi</div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
 </html>

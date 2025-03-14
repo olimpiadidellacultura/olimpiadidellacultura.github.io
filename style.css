@@ -1,0 +1,88 @@
+/* Imposta lo sfondo fotografico con effetto zoom */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif ;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('mobile.jpg') no-repeat center center fixed;
+    background-size: cover;
+    animation: zoomBackground 30s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Effetto zoom in/out per lo sfondo */
+  @keyframes zoomBackground {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Sovrapposizione scura per aumentare la leggibilità del testo */
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  /* Contenuto centrale senza box */
+  .content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Titolo con font Playfair e animazione di entrata */
+  h1 {
+    font-family: 'monserrat', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    animation: fadeInDown 1.5s ease-out;
+  }
+  
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Stile per il countdown e i singoli elementi */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .time {
+    margin: 10px;
+  }
+  
+  .time span {
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    animation: pulse 1s infinite;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  .label {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+  
