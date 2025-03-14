@@ -3,12 +3,12 @@ body {
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   color: #fff;
-  height: 100vh;
+  min-height: 100vh; /* Cambiato da height a min-height */
   display: flex;
   justify-content: center;
   align-items: center;
   background: none;
-  overflow: hidden;
+  overflow: hidden; /* Cambiato da auto a hidden */
 }
 
 body::before {
@@ -24,7 +24,7 @@ body::before {
 
 .content {
   position: relative;
-  display: flex;
+  display: inline;
   flex-direction: column;
   align-items: center;
   gap: 2rem;
@@ -129,6 +129,11 @@ h1 {
   width: 100%;
   border: 1px solid rgba(36, 74, 245, 0.247);
   animation: weatherEntrance 0.8s ease-out 1s forwards;
+  overflow-y: auto; /* Aggiunto scroll verticale */
+  max-height: 70vh; /* Altezza massima per forzare lo scroll */
+  touch-action: pan-y; /* Abilita scroll touch */
+  -webkit-overflow-scrolling: touch; /* Scroll fluido per iOS */
+  pointer-events: auto; /* Riabilita interazioni */
 }
 
 .weather-section h2 {
@@ -143,6 +148,9 @@ h1 {
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   justify-content: center;
+  pointer-events: auto;
+  overflow-y: visible;
+  min-height: min-content; /* Altezza minima del contenuto */
 }
 
 .weather-day {
@@ -206,6 +214,7 @@ h1 {
   .weather-section {
     width: 90%;
     padding: 1rem;
+    max-height: 60vh; /* Riduci l'altezza su mobile */
   }
   
   h1 {
@@ -227,5 +236,5 @@ h1 {
 }
 
 html {
-  overflow: hidden;
+  overflow: auto;
 }
