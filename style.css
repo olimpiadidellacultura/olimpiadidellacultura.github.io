@@ -10,8 +10,7 @@ body {
     align-items: center;
     background: url('mobile.jpg') no-repeat center center fixed;
     background-size: cover;
-    animation: zoomBackground 30s ease-in-out infinite;
-    position: relative;
+    position: center;
     overflow: hidden;
   }
   
