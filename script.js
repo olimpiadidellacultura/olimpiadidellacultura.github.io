@@ -1,12 +1,12 @@
 // Configurazione immagini
 const backgrounds = [
-  'images/foto1.jpg',
-  'images/foto2.jpg',
-  'images/foto3.jpg',
-  'images/foto4.jpg',
-  'images/foto5.jpg',
-  'images/foto6.jpg',
-  'images/mobile.jpg'
+  'images/foto1.webp',
+  'images/foto2.webp',
+  'images/foto3.webp',
+  'images/foto4.webp',
+  'images/foto5.webp',
+  'images/foto6.webp',
+  'images/mobile.webp'
 ];
 
 // Precàrica immagini
