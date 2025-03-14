@@ -14,13 +14,6 @@ body {
     overflow: hidden;
   }
   
-  /* Effetto zoom in/out per lo sfondo */
-  @keyframes zoomBackground {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  
   /* Sovrapposizione scura per aumentare la leggibilità del testo */
   body::before {
     content: '';
