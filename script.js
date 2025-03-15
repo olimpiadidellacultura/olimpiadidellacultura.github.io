@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const backgrounds = [
   'images/foto1.webp',
   'images/foto2.webp',
@@ -7,6 +8,85 @@ const backgrounds = [
   'images/foto6.webp',
   'images/mobile.webp'
 ];
+=======
+let backgrounds;
+let nextBackground;
+
+function changeBackgrounds() {
+  if (window.innerWidth < window.innerHeight) {
+    backgrounds = [ // Foto verticali
+      'images/mobile.webp',
+      'images/1.webp',
+      'images/2.webp',
+      'images/3.webp',
+      'images/4.webp',
+      'images/5.webp',
+      'images/6.webp',
+      'images/7.webp',
+      'images/8.webp',
+      'images/9.webp',
+      'images/10.webp',
+      'images/11.webp',
+      'images/12.webp',
+      'images/13.webp',
+      'images/14.webp',
+      'images/15.webp',
+      'images/16.webp',
+      'images/17.webp',
+      'images/18.webp',
+      'images/19.webp',
+      'images/20.webp',
+      'images/22.webp'
+    ];
+  } else {
+    backgrounds = [ // Foto orizzontali
+      'HorizontalImages/foto2.webp',
+      'HorizontalImages/foto3.webp',
+      'HorizontalImages/foto4.webp',
+      'HorizontalImages/foto5.webp',
+      'HorizontalImages/foto6.webp',
+      'HorizontalImages/IMG_0135.webp',
+      'HorizontalImages/IMG_0159.webp',
+      'HorizontalImages/IMG_0195.webp',
+      'HorizontalImages/IMG_0215.webp',
+      'HorizontalImages/IMG_0224.webp',
+      'HorizontalImages/IMG_0380.webp',
+      'HorizontalImages/IMG_0499.webp',
+      'HorizontalImages/IMG_0583.webp',
+      'HorizontalImages/IMG_2602.webp',
+      'HorizontalImages/tolfa.jpg',
+    ];
+  }
+  nextBackground = getRandomBackground();
+  preloadNextBackground();
+}
+
+function preloadNextBackground() {
+  if (!nextBackground) return;
+  const img = new Image();
+  img.src = nextBackground;
+}
+
+function getRandomBackground() {
+  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
+}
+
+function changeBackground() {
+  const container = document.querySelector('.background-fade');
+  const newBackground = document.createElement('div');
+  newBackground.className = 'background-fade';
+  newBackground.style.backgroundImage = `url('${nextBackground}')`;
+  
+  container.parentNode.appendChild(newBackground);
+  setTimeout(() => {
+    newBackground.classList.add('active');
+    setTimeout(() => container.remove(), 1500);
+  }, 100);
+
+  nextBackground = getRandomBackground();
+  preloadNextBackground();
+}
+>>>>>>> eed99fcb7f09747fd7970a6ec97192b8fd3a66c3
 
 const TOLFA_COORDS = { latitude: 42.15, longitude: 11.93 };
 const EVENT_DATES = {
@@ -59,31 +139,6 @@ function getIconName(code) {
     99: 'thunderstorms-rain'
   };
   return customIconMap[code] || 'unknown';
-}
-function preloadImages() {
-  return Promise.all(backgrounds.map(img => new Promise((resolve, reject) => {
-    const preloader = new Image();
-    preloader.src = img;
-    preloader.onload = resolve;
-    preloader.onerror = reject;
-  })));
-}
-
-function getRandomBackground() {
-  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
-}
-
-function changeBackground() {
-  const container = document.querySelector('.background-fade');
-  const newBackground = document.createElement('div');
-  newBackground.className = 'background-fade';
-  newBackground.style.backgroundImage = `url('${getRandomBackground()}')`;
-  
-  container.parentNode.appendChild(newBackground);
-  setTimeout(() => {
-    newBackground.classList.add('active');
-    setTimeout(() => container.remove(), 1500);
-  }, 100);
 }
 
 function updateCounter() {
@@ -202,17 +257,20 @@ async function updateTolfaWeather() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    await Promise.race([
-      preloadImages(),
-      new Promise(resolve => setTimeout(resolve, 5000))
-    ]);
+    changeBackgrounds();
+    
+    await new Promise(resolve => setTimeout(resolve, 5000));
     
     document.querySelector('.loader').remove();
     document.querySelector('.content').style.opacity = '1';
 
     const initialBg = document.querySelector('.background-fade');
-    initialBg.style.backgroundImage = `url('${getRandomBackground()}')`;
+    initialBg.style.backgroundImage = `url('${nextBackground}')`;
     initialBg.classList.add('active');
+
+    nextBackground = getRandomBackground();
+    preloadNextBackground();
+
     setInterval(changeBackground, 7000);
 
     setInterval(updateCounter, 1000);
@@ -227,4 +285,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       <p>Aggiornare la pagina o controllare la connessione</p>
     `;
   }
+});
+
+window.addEventListener("resize", function () {
+  changeBackgrounds();
 });
