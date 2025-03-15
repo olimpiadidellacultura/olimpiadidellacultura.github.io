@@ -1,33 +1,49 @@
-const backgrounds = [
-  'images/foto1.webp',
-  'images/foto2.webp',
-  'images/foto3.webp',
-  'images/foto4.webp',
-  'images/foto5.webp',
-  'images/foto6.webp',
-  'images/mobile.webp',
-  'images/1.webp',
-  'images/2.webp',
-  'images/3.webp',
-  'images/4.webp',
-  'images/5.webp',
-  'images/6.webp',
-  'images/7.webp',
-  'images/8.webp',
-  'images/9.webp',
-  'images/10.webp',
-  'images/11.webp',
-  'images/12.webp',
-  'images/13.webp',
-  'images/14.webp',
-  'images/15.webp',
-  'images/16.webp',
-  'images/17.webp',
-  'images/18.webp',
-  'images/19.webp',
-  'images/20.webp',
-  'images/22.webp'
-];
+let backgrounds;
+function changeBackgrounds() {
+  if (window.innerWidth < window.innerHeight) {
+    backgrounds = [ //Foto verticali
+      'images/mobile.webp',
+      'images/1.webp',
+      'images/2.webp',
+      'images/3.webp',
+      'images/4.webp',
+      'images/5.webp',
+      'images/6.webp',
+      'images/7.webp',
+      'images/8.webp',
+      'images/9.webp',
+      'images/10.webp',
+      'images/11.webp',
+      'images/12.webp',
+      'images/13.webp',
+      'images/14.webp',
+      'images/15.webp',
+      'images/16.webp',
+      'images/17.webp',
+      'images/18.webp',
+      'images/19.webp',
+      'images/20.webp',
+      'images/22.webp'
+    ];
+  }
+  else {
+    backgrounds=[ //Foto orizzontali
+      'HorizontalImages/foto1.webp',
+      'HorizontalImages/foto2.webp',
+      'HorizontalImages/foto3.webp',
+      'HorizontalImages/foto4.webp',
+      'HorizontalImages/foto5.webp',
+      'HorizontalImages/foto6.webp',
+      'HorizontalImages/tolfa.jpg',
+    ]
+  }
+}
+
+changeBackgrounds();
+
+window.addEventListener("resize", function () {
+  changeBackgrounds();
+});
 
 const TOLFA_COORDS = { latitude: 42.15, longitude: 11.93 };
 const EVENT_DATES = {
