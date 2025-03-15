@@ -10,11 +10,9 @@ const backgrounds = [
 ];
 
 let backgrounds;
-let nextBackground;
-
 function changeBackgrounds() {
   if (window.innerWidth < window.innerHeight) {
-    backgrounds = [ // Foto verticali
+    backgrounds = [ //Foto verticali
       'images/mobile.webp',
       'images/1.webp',
       'images/2.webp',
@@ -38,8 +36,9 @@ function changeBackgrounds() {
       'images/20.webp',
       'images/22.webp'
     ];
-  } else {
-    backgrounds = [ // Foto orizzontali
+  }
+  else {
+    backgrounds=[ //Foto orizzontali
       'HorizontalImages/foto2.webp',
       'HorizontalImages/foto3.webp',
       'HorizontalImages/foto4.webp',
@@ -67,7 +66,6 @@ function preloadNextBackground() {
   img.src = nextBackground;
 }
 
-
 function getRandomBackground() {
   return backgrounds[Math.floor(Math.random() * backgrounds.length)];
 }
@@ -87,11 +85,6 @@ function changeBackground() {
   nextBackground = getRandomBackground();
   preloadNextBackground();
 }
-
-window.addEventListener("resize", function () {
-  changeBackgrounds();
-});
-
 
 const TOLFA_COORDS = { latitude: 42.15, longitude: 11.93 };
 const EVENT_DATES = {
@@ -144,6 +137,31 @@ function getIconName(code) {
     99: 'thunderstorms-rain'
   };
   return customIconMap[code] || 'unknown';
+}
+function preloadImages() {
+  return Promise.all(backgrounds.map(img => new Promise((resolve, reject) => {
+    const preloader = new Image();
+    preloader.src = img;
+    preloader.onload = resolve;
+    preloader.onerror = reject;
+  })));
+}
+
+function getRandomBackground() {
+  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
+}
+
+function changeBackground() {
+  const container = document.querySelector('.background-fade');
+  const newBackground = document.createElement('div');
+  newBackground.className = 'background-fade';
+  newBackground.style.backgroundImage = `url('${getRandomBackground()}')`;
+  
+  container.parentNode.appendChild(newBackground);
+  setTimeout(() => {
+    newBackground.classList.add('active');
+    setTimeout(() => container.remove(), 1500);
+  }, 100);
 }
 
 function updateCounter() {
@@ -262,20 +280,17 @@ async function updateTolfaWeather() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    changeBackgrounds();
-    
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await Promise.race([
+      preloadImages(),
+      new Promise(resolve => setTimeout(resolve, 5000))
+    ]);
     
     document.querySelector('.loader').remove();
     document.querySelector('.content').style.opacity = '1';
 
     const initialBg = document.querySelector('.background-fade');
-    initialBg.style.backgroundImage = `url('${nextBackground}')`;
+    initialBg.style.backgroundImage = `url('${getRandomBackground()}')`;
     initialBg.classList.add('active');
-
-    nextBackground = getRandomBackground();
-    preloadNextBackground();
-
     setInterval(changeBackground, 7000);
 
     setInterval(updateCounter, 1000);
@@ -290,8 +305,4 @@ document.addEventListener('DOMContentLoaded', async () => {
       <p>Aggiornare la pagina o controllare la connessione</p>
     `;
   }
-});
-
-window.addEventListener("resize", function () {
-  changeBackgrounds();
 });
