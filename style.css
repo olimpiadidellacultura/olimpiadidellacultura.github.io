@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', slab-serif;
   color: #ffffff;
   min-height: 100vh;
   display: flex;
@@ -12,16 +12,13 @@ body {
 }
 
 body::before {
-  content: '';
-  position: fixed;
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.184);
-  z-index: 1;
+  width: 100%;
+  height: 100%;
 }
-
 .content {
   position: relative;
   display: inline;
@@ -34,15 +31,19 @@ body::before {
   transition: opacity 0.5s ease-in;
   width: 100%;
   max-width: 1200px;
+  z-index: 3;
 }
 
 h1 {
   font-family: 'Montserrat', slab-serif;
-  font-size: 3rem;
+  font-size: 2.8rem;
   margin-bottom: 20px;
   text-shadow: 2px 5px 8px rgba(0, 102, 255, 0.7);
   animation: fadeInDown 1.5s ease-out;
-  color:#ffffff
+  color:#ffffff;
+  position: relative;
+  text-align: center center;
+  justify-content: center;
 }
 
 @keyframes fadeInDown {
@@ -87,6 +88,8 @@ h1 {
   width: 100%;
   height: 100%;
   z-index: 0;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .background-fade {
@@ -95,13 +98,43 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+  z-index: 2; /* Mantieni sopra lo sfondo sfocato */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+.background-fade-sfoc {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 3s ease-in-out, filter 3s ease-in-out;
+  filter: blur(8px); /* Aggiungi effetto blur */
+  transform: scale(1.05); /* Migliora l'effetto di profondità */
+  z-index: 1; /* Posiziona sotto lo sfondo principale */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: opacity, filter;
 }
 
+
 .background-fade.active {
+  opacity: 1;
+  transition-duration: 3s;
+}
+
+.background-fade-sfoc.active {
+  transition-duration: 3s;
   opacity: 1;
 }
 
@@ -166,9 +199,10 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(2, 200, 255, 0.149);
   z-index: 1;
   border-radius: 12px;
+  filter: blur(10px);
 }
 
 .weather-day > * {

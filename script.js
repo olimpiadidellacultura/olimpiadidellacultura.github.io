@@ -81,6 +81,7 @@ function getIconName(code) {
   };
   return customIconMap[code] || 'unknown';
 }
+
 function preloadImages() {
   return Promise.all(backgrounds.map(img => new Promise((resolve, reject) => {
     const preloader = new Image();
@@ -94,17 +95,46 @@ function getRandomBackground() {
   return backgrounds[Math.floor(Math.random() * backgrounds.length)];
 }
 
-function changeBackground() {
-  const container = document.querySelector('.background-fade');
-  const newBackground = document.createElement('div');
-  newBackground.className = 'background-fade';
-  newBackground.style.backgroundImage = `url('${getRandomBackground()}')`;
+let currentBackground = '';
+
+function getSyncRandomBackground() {
+  currentBackground = getRandomBackground();
+  return currentBackground;
+}
+
+function changeBothBackgrounds() {
+  const newBg = getSyncRandomBackground();
   
-  container.parentNode.appendChild(newBackground);
+  // Pre-carica la prossima immagine 2 secondi prima del cambio
   setTimeout(() => {
-    newBackground.classList.add('active');
-    setTimeout(() => container.remove(), 1500);
-  }, 100);
+    const preload = new Image();
+    preload.src = getRandomBackground();
+  }, 5000);
+
+  const mainContainer = document.querySelector('.background-fade');
+  const newMain = document.createElement('div');
+  newMain.className = 'background-fade';
+  newMain.style.backgroundImage = `url('${newBg}')`;
+  
+  const blurContainer = document.querySelector('.background-fade-sfoc');
+  const newBlur = document.createElement('div');
+  newBlur.className = 'background-fade-sfoc';
+  newBlur.style.backgroundImage = `url('${newBg}')`;
+
+  mainContainer.parentNode.appendChild(newMain);
+  blurContainer.parentNode.appendChild(newBlur);
+
+  // Transizione in entrata più lunga
+  setTimeout(() => {
+    newMain.classList.add('active');
+    newBlur.classList.add('active');
+  }, 50);
+
+  // Rimozione più sincronizzata
+  setTimeout(() => {
+    mainContainer.remove();
+    blurContainer.remove();
+  }, 4050); // Tempo maggiore della transizione
 }
 
 function updateCounter() {
@@ -225,17 +255,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     await Promise.race([
       preloadImages(),
-      new Promise(resolve => setTimeout(resolve, 5000))
+      new Promise(resolve => setTimeout(resolve, 10000))
     ]);
     
     document.querySelector('.loader').remove();
     document.querySelector('.content').style.opacity = '1';
 
-    const initialBg = document.querySelector('.background-fade');
-    initialBg.style.backgroundImage = `url('${getRandomBackground()}')`;
-    initialBg.classList.add('active');
-    setInterval(changeBackground, 7000);
+    // Inizializzazione sfondi
+    const initialBg = getSyncRandomBackground();
+    
+    const mainBg = document.querySelector('.background-fade');
+    mainBg.style.backgroundImage = `url('${initialBg}')`;
+    mainBg.classList.add('active');
 
+    const blurBg = document.querySelector('.background-fade-sfoc');
+    blurBg.style.backgroundImage = `url('${initialBg}')`;
+    blurBg.classList.add('active');
+
+    // Intervalli aggiornati
+    setInterval(changeBothBackgrounds, 8000);
     setInterval(updateCounter, 1000);
     updateCounter();
 
