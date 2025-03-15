@@ -8,8 +8,8 @@ const backgrounds = [
   'images/foto6.webp',
   'images/mobile.webp'
 ];
-
-let backgrounds;
+let background
+let nextbackgrounds;
 function changeBackgrounds() {
   if (window.innerWidth < window.innerHeight) {
     backgrounds = [ //Foto verticali
