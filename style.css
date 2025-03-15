@@ -234,6 +234,7 @@ h1 {
   }
   
   h1 {
+    font-family: 'Montserrat', slab-serif;
     font-size: 2rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 102, 255, 0.797);
