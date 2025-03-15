@@ -28,7 +28,6 @@ function changeBackgrounds() {
   }
   else {
     backgrounds=[ //Foto orizzontali
-      'HorizontalImages/foto1.webp',
       'HorizontalImages/foto2.webp',
       'HorizontalImages/foto3.webp',
       'HorizontalImages/foto4.webp',
