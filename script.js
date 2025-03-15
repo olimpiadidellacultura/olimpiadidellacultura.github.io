@@ -44,8 +44,7 @@ function changeBackgrounds() {
       'HorizontalImages/IMG_0380.webp',
       'HorizontalImages/IMG_0499.webp',
       'HorizontalImages/IMG_0583.webp',
-      'HorizontalImages/IMG_2602.webp',
-      'HorizontalImages/tolfa.jpg',
+      'HorizontalImages/IMG_2602.webp'
     ]
   }
 }
