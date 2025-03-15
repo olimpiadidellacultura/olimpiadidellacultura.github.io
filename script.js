@@ -1,15 +1,7 @@
 
-const backgrounds = [
-  'images/foto1.webp',
-  'images/foto2.webp',
-  'images/foto3.webp',
-  'images/foto4.webp',
-  'images/foto5.webp',
-  'images/foto6.webp',
-  'images/mobile.webp'
-];
-let background
-let nextbackgrounds;
+
+let backgrounds;
+
 function changeBackgrounds() {
   if (window.innerWidth < window.innerHeight) {
     backgrounds = [ //Foto verticali
@@ -54,37 +46,15 @@ function changeBackgrounds() {
       'HorizontalImages/IMG_0583.webp',
       'HorizontalImages/IMG_2602.webp',
       'HorizontalImages/tolfa.jpg',
-    ];
+    ]
   }
-  nextBackground = getRandomBackground();
-  preloadNextBackground();
 }
 
-function preloadNextBackground() {
-  if (!nextBackground) return;
-  const img = new Image();
-  img.src = nextBackground;
-}
+changeBackgrounds();
 
-function getRandomBackground() {
-  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
-}
-
-function changeBackground() {
-  const container = document.querySelector('.background-fade');
-  const newBackground = document.createElement('div');
-  newBackground.className = 'background-fade';
-  newBackground.style.backgroundImage = `url('${nextBackground}')`;
-  
-  container.parentNode.appendChild(newBackground);
-  setTimeout(() => {
-    newBackground.classList.add('active');
-    setTimeout(() => container.remove(), 1500);
-  }, 100);
-
-  nextBackground = getRandomBackground();
-  preloadNextBackground();
-}
+window.addEventListener("resize", function () {
+  changeBackgrounds();
+});
 
 const TOLFA_COORDS = { latitude: 42.15, longitude: 11.93 };
 const EVENT_DATES = {
