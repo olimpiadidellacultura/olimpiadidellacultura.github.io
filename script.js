@@ -138,7 +138,7 @@ function updateCounter() {
   const distance = EVENT_DATES.targetDate - now;
   
   if(distance < 0) {
-    document.querySelector(".content").innerHTML = "<h1>L'evento è iniziato!</h1>";
+    window.location.href="  RealWebSite/index.html";
     return;
   }
 
@@ -275,3 +275,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
 });
+
+async function verificaHash(stringa) {
+  const hashAtteso = "df3a717f202d9246b73404a990b330a8aeff23ddb391a787fbb32f3ea0097aa0";
+
+  // Codifica la stringa in un array di byte
+  const encoder = new TextEncoder();
+  const data = encoder.encode(stringa);
+
+  // Calcola l'hash SHA-256
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  // Converte l'hash in una stringa esadecimale
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  // Confronta l'hash calcolato con quello atteso
+  if (hashHex === hashAtteso) {
+      console.log("✅ Hash corrisponde!");
+      window.location.href="  RealWebSite/index.html";
+      return true;
+  } else {
+      console.log("❌ Hash non corrisponde!");
+      return false;
+  }
+}
