@@ -46,7 +46,7 @@ body {
   backdrop-filter: blur(5px);
   background-color: rgb(0, 0, 0) !important;
   font-size: 1.1rem;
-  height: 12%; /* Ridotta l'altezza della navbar */
+  height: 100px; /* Ridotta l'altezza della navbar */
 }
 .navbar-brand {
   font-size: 1.2rem; /* Aumentata la dimensione del font del logo */
@@ -183,7 +183,7 @@ h2 {
   flex: 1 1 calc(25% - 1rem); /* 4 box per riga su desktop */
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .weather-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -223,7 +223,7 @@ h2 {
   margin: 0 auto;
   border-radius: 15px;
   border: 2px solid #fff !important;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  box-shadow: 15 15 20px rgba(0,0,0,0.6);
   padding: 2rem;
   background: rgba(255,255,255,0.92);
   min-height: 60vh; /* Altezza minima per una buona visualizzazione */
@@ -233,8 +233,10 @@ h2 {
   flex-direction: column;
   justify-content: center;
 }
+
 .programma-table {
-  background: rgba(255,255,255,0.95);
+  max-width: 95%;
+  margin: 0 auto;
   border-radius: 15px;
   overflow: hidden;
   padding: 1rem;
@@ -253,6 +255,7 @@ h2 {
 .table-responsive {
   max-height: 100%; /* Fa in modo che la tabella occupi tutto lo spazio disponibile */
   overflow-y: auto; /* Scrolling verticale solo se necessario */
+  scrollbar-width: none;
   overflow-x: hidden; /* Evita scrolling orizzontale */
 }
 
@@ -318,6 +321,9 @@ section {
     background-size: cover;
     background-position: center;
   }
+  .navbar {
+    height: 95px; /* Ridotta l'altezza della navbar su mobile */
+  }
   .hero {
     padding: 5rem 1rem;
     margin-top: 50px;
@@ -342,7 +348,7 @@ section {
       }
   
   .btn {
-    width: 100%;
+    width: fit-content;
   }
   #programma-pt, #programma-pd {
     min-height: 50vh;
@@ -351,7 +357,11 @@ section {
   }
   .table-responsive {
     max-height: 90%;
-      }
+  }
+  .btn-primary {
+    font-size: 0.8rem; /* Riduce la dimensione del testo nei bottoni su mobile */
+    padding: 0.6rem 1rem; /* Riduce il padding nei bottoni su mobile */
+  }    
 }
 
 @media (min-width: 992px) {
