@@ -1,12 +1,13 @@
 /* Import dei font da Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;600;700&family=Roboto:wght@400;700&display=swap');
 
 /* Base styles */
 body {
   background: url('images/oct.jpg') no-repeat center center fixed;
   background-size: cover;
   background-position: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600; /* Semi-bold per il corpo del testo */
   color: #ececec;
   min-height: 100vh;
   display: flex;
@@ -35,7 +36,6 @@ body {
 .nav-item {
   margin: 0.5rem 0;
 }
-
 
 .navbar-toggler:focus {
   outline: none;
@@ -74,9 +74,9 @@ body {
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
 }
 .hero h1 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* Bold per i titoli */
   font-size: 3.5rem;
-  font-weight: 700;
   letter-spacing: 1px;
 }
 .hero p.lead {
@@ -87,9 +87,9 @@ body {
 
 /* Titoli generici */
 h2 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700; /* Bold per i titoli */
   font-size: 2.5rem;
-  font-weight: 600;
   text-align: center;
   margin-bottom: 2rem;
   color: #fff;
@@ -189,7 +189,7 @@ h2 {
   }
   
   .weather-section {
-    width: 90%;
+    width: 95%;
     padding: 1rem;
     max-height: 60vh;
   }
@@ -210,69 +210,91 @@ h2 {
 /* Mappa */
 #map {
   height: 60vh;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   border-radius: 15px;
   border: 2px solid #fff !important;
   box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-/* Programma */
-#programma-pt, #programma-pd {
-  max-width: 95%;
-  margin: 0 auto;
-  border-radius: 15px;
-  border: 2px solid #fff !important;
-  box-shadow: 15 15 20px rgba(0,0,0,0.6);
-  padding: 2rem;
-  background: rgba(255,255,255,0.92);
-  min-height: 60vh; /* Altezza minima per una buona visualizzazione */
-  max-height: 80vh; /* Altezza massima per non sforare lo schermo */
-  overflow: hidden; /* Evita che la tabella esca dal contenitore */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+/* Stili per i popup della mappa */
+.map-popup {
+  padding: 10px;
+  min-width: 150px;
 }
 
-.programma-table {
-  max-width: 95%;
-  margin: 0 auto;
+.map-popup h6 {
+  color: #003366;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.map-popup p {
+  color: #333333;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+/* Stili per i popup dei programmi */
+#programModal .modal-content {
+  background-color: rgba(0, 0, 0, 0.85);
   border-radius: 15px;
-  overflow: hidden;
+  border: 2px solid #fff;
+}
+
+#programModal .modal-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#programModal .modal-header .btn-close {
+  color: #fff;
+  filter: invert(1);
+}
+
+#programModalBody {
+  color: #ffffff;
   padding: 1rem;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
-.table thead {
-  background: #343a40;
-  color: #fff;
-}
-.table tbody tr:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
-}
-.table-responsive {
-  max-height: 100%; /* Fa in modo che la tabella occupi tutto lo spazio disponibile */
-  overflow-y: auto; /* Scrolling verticale solo se necessario */
-  scrollbar-width: none;
-  overflow-x: hidden; /* Evita scrolling orizzontale */
+#programModalBody h3 {
+  color: #33AEFF;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Miglioramenti per la tabella */
-.table {
+#programModalBody p {
+  margin-bottom: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+#programModalBody strong {
+  color: #ff9d00;
+  font-weight: 600;
+}
+
+/* Media query per i popup su mobile */
+@media (max-width: 500px) {
+  #programModalBody h3 {
+    font-size: 1.5rem;
+  }
   
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.table thead {
-  background: #343a40;
-  color: #fff;
-}
-.table tbody tr:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transition: background 0.3s;
+  #programModalBody p {
+    font-size: 0.9rem;
+  }
+  
+  .map-popup h6 {
+    font-size: 0.9rem;
+  }
+  
+  .map-popup p {
+    font-size: 0.8rem;
+  }
 }
 
 /* Pulsanti */
@@ -280,14 +302,44 @@ h2 {
   background: linear-gradient(45deg, #0062E6, #33AEFF);
   border: none;
   font-weight: 600;
-  padding: 0.8rem 1.5rem;
   transition: transform 0.3s, background 0.3s;
-    width: fit-content; /* Rimuove la larghezza fissa */  
+  width: 40%;  
+  margin: 0 auto; /* Aggiunto per centrare */
 }
+
 .btn-primary:hover {
   background: linear-gradient(45deg, #0052c6, #1a9edc);
   transform: scale(1.05);
 }
+
+/* Contenitori per gruppi di bottoni */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* Media query per i bottoni su mobile */
+@media (max-width: 768px) {
+  .btn-primary {
+    width: 40% !important; /* Forza al 40% su mobile */
+  }
+  
+  /* Per i bottoni nelle sezioni programma prove e fotografica */
+  #programma .button-container .btn-primary,
+  #fotografica .button-container .btn-primary {
+    width: 40% !important;
+  }
+}
+
+/* Per mantenere i bottoni del programma (2x2) ben disposti */
+#programma .row .col-md-6 .btn-primary {
+  width: 40%;
+
+}
+
 .bg-white {
   background-color: #fff;
   --bs-bg-opacity: 0.3;
@@ -348,7 +400,7 @@ section {
       }
   
   .btn {
-    width: fit-content;
+    width: 40%;
   }
   #programma-pt, #programma-pd {
     min-height: 50vh;
@@ -360,7 +412,7 @@ section {
   }
   .btn-primary {
     font-size: 0.8rem; /* Riduce la dimensione del testo nei bottoni su mobile */
-    padding: 0.6rem 1rem; /* Riduce il padding nei bottoni su mobile */
+ /* Riduce il padding nei bottoni su mobile */
   }    
 }
 
