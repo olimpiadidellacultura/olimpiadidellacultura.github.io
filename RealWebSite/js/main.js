@@ -1,3 +1,93 @@
+function changeBackgrounds() {
+  if (window.innerWidth < window.innerHeight) {
+    backgrounds = [ //Foto verticali
+      './images/mobile.webp',
+      './images/1.webp',
+      './images/2.webp',
+      './images/3.webp',
+      './images/4.webp',
+      './images/5.webp',
+      './images/6.webp',
+      './images/7.webp',
+      './images/8.webp',
+      './images/9.webp',
+      './images/10.webp',
+      './images/11.webp',
+      './images/12.webp',
+      './images/13.webp',
+      './images/14.webp',
+      './images/15.webp',
+      './images/16.webp',
+      './images/17.webp',
+      './images/18.webp',
+      './images/19.webp',
+      './images/20.webp',
+      './images/22.webp'
+    ]
+  }
+  else {
+    backgrounds=[ //Foto orizzontali
+      './HorizontalImages/foto2.webp',
+      './HorizontalImages/foto3.webp',
+      './HorizontalImages/foto4.webp',
+      './HorizontalImages/foto5.webp',
+      './HorizontalImages/foto6.webp',
+      './HorizontalImages/IMG_0135.webp',
+      './HorizontalImages/IMG_0159.webp',
+      './HorizontalImages/IMG_0195.webp',
+      './HorizontalImages/IMG_0215.webp',
+      './HorizontalImages/IMG_0224.webp',
+      './HorizontalImages/IMG_0380.webp',
+      './HorizontalImages/IMG_0499.webp',
+      './HorizontalImages/IMG_0583.webp',
+      './HorizontalImages/IMG_2602.webp'
+    ]
+  }
+  window.backgrounds = backgrounds; // Make it globally accessible
+  return backgrounds;
+}
+changeBackgrounds();
+
+window.addEventListener("resize", function () {
+  changeBackgrounds();
+});
+
+function preloadImages() {
+  console.log("Attempting to load images:", backgrounds);
+  
+  return Promise.all(backgrounds.map(img => new Promise((resolve) => {
+    const preloader = new Image();
+    preloader.src = img;
+    
+    preloader.onload = () => {
+      console.log(`✅ Successfully loaded: ${img}`);
+      resolve();
+    };
+    
+    preloader.onerror = () => {
+      console.error(`❌ Failed to load image: ${img}`);
+      resolve(); // Resolve anyway to continue loading other images
+    };
+  })));
+}
+
+function getRandomBackground() {
+  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
+}
+
+function changeBackground() {
+  const container = document.querySelector('.background-fade');
+  const newBackground = document.createElement('div');
+  newBackground.className = 'background-fade';
+  newBackground.style.backgroundImage = `url('${getRandomBackground()}')`;
+  
+  container.parentNode.appendChild(newBackground);
+  setTimeout(() => {
+    newBackground.classList.add('active');
+    setTimeout(() => container.remove(), 1500);
+  }, 100);
+}
+
 document.addEventListener("DOMContentLoaded", function() {
   function initMap() {
     // Inizializza la mappa con il centro predefinito
@@ -183,4 +273,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
   window.showProgramPD = showProgramPD;
 
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    await Promise.race([
+      preloadImages(),
+      new Promise(resolve => setTimeout(resolve, 5000))
+    ]);
+    
+    // Check if elements exist before using them
+    const loader = document.querySelector('.loader');
+    if (loader) loader.remove();
+    
+    const content = document.querySelector('.content');
+    if (content) content.style.opacity = '1';
+
+    const initialBg = document.querySelector('.background-fade');
+    if (initialBg) {
+      initialBg.style.backgroundImage = `url('${getRandomBackground()}')`;
+      initialBg.classList.add('active');
+      setInterval(changeBackground, 7000);
+    } else {
+      console.error("Background element (.background-fade) not found!");
+    }
+
+  } catch (error) {
+    console.error('Errore inizializzazione:', error);
+    const content = document.querySelector('.content');
+    if (content) {
+      content.innerHTML = `
+        <h1>Errore nel caricamento</h1>
+        <p>Aggiornare la pagina o controllare la connessione</p>
+      `;
+    }
+  }
 });
