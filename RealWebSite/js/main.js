@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
   function initMap() {
     // Inizializza la mappa con il centro predefinito
-    var center = { lat: 42.14944, lng: 11.93806 };
+    var center = { lat: 42.149224, lng: 11.93406 };
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 17,
+      zoom: 15,
       center: center,
-      mapTypeId: 'roadmap'
+      mapTypeId: 'satellite'
     });
 
     // Carica il programma per arricchire i marker
@@ -17,26 +17,33 @@ document.addEventListener("DOMContentLoaded", function() {
           { 
             name: "TEATRO CLAUDIO", 
             coords: { lat: 42.15025, lng: 11.93487 }, 
-            info: "Via Teatro Claudio, 1",
-            keywords: "🎭 Cerimonia apertura<br>🎬 Proiezione corti<br>🎤 Prova talento<br>🕺 Battle"
+            info: "",
+            keywords: `<img src="iconmap/cerimonia.png" alt="Cerimonia" width="16" height="16" style="margin-right: 4px;"> Cerimonia d'apertura<br>
+                       <img src="iconmap/corti.png" alt="Proiezione" width="16" height="16" style="margin-right: 4px;"> Proiezione corti<br>
+                       <img src="iconmap/talento.png" alt="Talento" width="16" height="16" style="margin-right: 4px;"> Prova talento<br>
+                       <img src="iconmap/battle.png" alt="Battle" width="16" height="16" style="margin-right: 4px;"> Battle<br>
+                       <img src="iconmap/premiazione.png" alt="Premiazione" width="16" height="16" style="margin-right: 4px;"> Premiazione`
           },
           {
             name: "POLO CULTURALE",
             coords: { lat: 42.14987940358026, lng: 11.930005844754685 },
-            info: "Polo Culturale di Tolfa",
-            keywords: "🎓 Prova 'Parlateci di'"
+            info: "",
+            keywords: `<img src="iconmap/parlateci.png" alt="Prova" width="16" height="16" style="margin-right: 4px;"> Prova 'Parlateci di'`
           },
           {
             name: "PIAZZA V.VENETO",
             coords: { lat: 42.149440768633525, lng: 11.937874143985388 },
-            info: "-Staffetta della Cultura-",
-            keywords: "📚 Staffetta della Cultura<br>🏐 Volleympiadi<br>🏃 Riscaldamento"
+            info: "",
+            keywords: `<img src="iconmap/staffetta.png" alt="Staffetta" width="16" height="16" style="margin-right: 4px;"> Staffetta della Cultura<br>
+                       <img src="iconmap/volley.png" alt="Volley" width="16" height="16" style="margin-right: 4px;"> Volleympiadi<br>
+                       <img src="iconmap/riscaldamento.png" alt="Riscaldamento" width="16" height="16" style="margin-right: 4px;"> Riscaldamento`
           },
           {
             name: "GIARDINO DELLA VILLA COMUNALE",
-            coords: { lat: 42.14862519500307, lng: 11.936753508337052 },
-            info: "Registrazione",
-            keywords: "✅ Accoglienza e registrazione<br>🎲 Sorteggio prove"
+            coords: { lat: 42.14849761781823, lng: 11.937441288508827 },
+            info: "",
+            keywords: `<img src="iconmap/registrazione.png" alt="Registrazione" width="16" height="16" style="margin-right: 4px;"> Accoglienza e registrazione<br>
+                       <img src="iconmap/sorteggio.png" alt="Sorteggio" width="16" height="16" style="margin-right: 4px;"> Sorteggio prove`
           }
         ];
 
@@ -54,27 +61,14 @@ document.addEventListener("DOMContentLoaded", function() {
                           <p style="color: black;">${point.info}</p>
                           <div class="activities-box" style="margin: 8px 0; padding: 8px; background-color: #f8f9fa; border-radius: 4px; color: black;">
                             <strong style="color: black;">Attività:</strong><br>
-                            <span style="color: black;">${point.keywords.replace(/🎭|🎬|🎤|🕺|🎓|📚|🏐|🏃|✅|🎲/g, match => {
-                              // Mappa emoji a icone SVG disponibili nella cartella icons/
-                              const iconMap = {
-                                '🎭': '<img src="icons/clear-day.svg" alt="Cerimonia" width="16" height="16" style="margin-right: 4px;">',
-                                '🎬': '<img src="icons/partly-cloudy-day.svg" alt="Proiezione" width="16" height="16" style="margin-right: 4px;">',
-                                '🎤': '<img src="icons/thunderstorms.svg" alt="Talento" width="16" height="16" style="margin-right: 4px;">',
-                                '🕺': '<img src="icons/thunderstorms-rain.svg" alt="Battle" width="16" height="16" style="margin-right: 4px;">',
-                                '🎓': '<img src="icons/cloudy.svg" alt="Prova" width="16" height="16" style="margin-right: 4px;">',
-                                '📚': '<img src="icons/partly-cloud-day.svg" alt="Staffetta" width="16" height="16" style="margin-right: 4px;">',
-                                '🏐': '<img src="icons/clear-day.svg" alt="Volley" width="16" height="16" style="margin-right: 4px;">',
-                                '🏃': '<img src="icons/fog.svg" alt="Riscaldamento" width="16" height="16" style="margin-right: 4px;">',
-                                '✅': '<img src="icons/drizzle.svg" alt="Registrazione" width="16" height="16" style="margin-right: 4px;">',
-                                '🎲': '<img src="icons/snow.svg" alt="Sorteggio" width="16" height="16" style="margin-right: 4px;">'
-                              };
-                              return iconMap[match] || match;
-                            })}</span>
+                            <span style="color: black;">${point.keywords}</span>
                           </div>
-                          <a href="geo:${point.coords.lat},${point.coords.lng}" 
-                             class="btn btn-sm btn-primary">
-                             <img src="icons/rain.svg" alt="Naviga" width="16" height="16" style="margin-right: 4px;"> Naviga
-                          </a>
+                          <div style="text-align: center; margin-top: 10px;">
+                            <a href="geo:${point.coords.lat},${point.coords.lng}" 
+                               class="btn btn-primary map-navigate-btn" style="width: auto; padding: 6px 12px; display: inline-block; margin: 0 auto;">
+                               <img src="iconmap/nav.png" alt="Naviga" width="16" height="16" style="margin-right: 4px; vertical-align: middle;"> Naviga
+                            </a>
+                          </div>
                       </div>`
           });
 
@@ -104,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
           },
           {
             name: "GIARDINO DELLA VILLA COMUNALE",
-            coords: { lat: 42.14862519500307, lng: 11.936753508337052 },
+            coords: { lat: 42.14849761781823, lng: 11.937441288508827 },
             info: "Registrazione"
           }
         ];
