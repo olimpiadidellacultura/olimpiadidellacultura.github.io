@@ -95,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
       center: center,
-      mapTypeId: 'satellite'
+      mapTypeId: 'satellite',
+      mapId: '414892f452311cd1'
     });
 
     // Carica il programma per arricchire i marker
@@ -139,14 +140,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Aggiungi marker
         points.forEach(point => {
-          var marker = new google.maps.Marker({
-            position: point.coords,
-            map: map,
-            title: point.name
+          // Create marker content element
+          const markerView = new google.maps.marker.PinView({
+            background: '#1E88E5',
+            borderColor: '#0D47A1',
+            glyphColor: '#FFFFFF',
           });
 
-          var infoWindow = new google.maps.InfoWindow({
-            content: `<div class="map-popup" style="color: black;">
+          // Create advanced marker
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+            position: point.coords,
+            map: map,
+            title: point.name,
+            content: markerView.element,
+          });
+
+          // Create info window content
+          const contentString = `<div class="map-popup" style="color: black;">
                           <h6 style="color: black; font-weight: bold;">${point.name}</h6>
                           <p style="color: black;">${point.info}</p>
                           <div class="activities-box" style="margin: 8px 0; padding: 8px; background-color: #f8f9fa; border-radius: 4px; color: black;">
@@ -159,17 +169,25 @@ document.addEventListener("DOMContentLoaded", function() {
                                <img src="iconmap/nav.png" alt="Naviga" width="16" height="16" style="margin-right: 4px; vertical-align: middle;"> Naviga
                             </a>
                           </div>
-                      </div>`
+                      </div>`;
+
+          // Create info window
+          const infoWindow = new google.maps.InfoWindow({
+            content: contentString,
           });
 
-          marker.addListener("click", function() {
-            infoWindow.open(map, marker);
+          // Add click listener to marker
+          marker.addListener("click", () => {
+            infoWindow.open({
+              anchor: marker,
+              map
+            });
           });
         });
       })
       .catch(err => {
         console.error('Errore nel caricamento del programma:', err);
-        // Fallback se il caricamento del programma fallisce
+        // Fallback with advanced markers
         const points = [
           { 
             name: "TEATRO CLAUDIO", 
@@ -193,27 +211,39 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         ];
 
-        // Aggiungi marker
+        // Add markers using Advanced Markers API
         points.forEach(point => {
-          var marker = new google.maps.Marker({
+          const markerView = new google.maps.marker.PinView({
+            background: '#1E88E5',
+            borderColor: '#0D47A1',
+            glyphColor: '#FFFFFF',
+          });
+
+          const marker = new google.maps.marker.AdvancedMarkerElement({
             position: point.coords,
             map: map,
-            title: point.name
+            title: point.name,
+            content: markerView.element,
           });
 
-          var infoWindow = new google.maps.InfoWindow({
-            content: `<div class="map-popup">
-                          <h6>${point.name}</h6>
-                          <p>${point.info}</p>
-                          <a href="https://www.google.com/maps/dir/?api=1&destination=${point.coords.lat},${point.coords.lng}" 
-                             target="_blank" class="btn btn-sm btn-primary">
-                             ➡️
-                          </a>
-                      </div>`
+          const contentString = `<div class="map-popup">
+                      <h6>${point.name}</h6>
+                      <p>${point.info}</p>
+                      <a href="https://www.google.com/maps/dir/?api=1&destination=${point.coords.lat},${point.coords.lng}" 
+                         target="_blank" class="btn btn-sm btn-primary">
+                         ➡️
+                      </a>
+                  </div>`;
+
+          const infoWindow = new google.maps.InfoWindow({
+            content: contentString,
           });
 
-          marker.addListener("click", function() {
-            infoWindow.open(map, marker);
+          marker.addListener("click", () => {
+            infoWindow.open({
+              anchor: marker,
+              map
+            });
           });
         });
       });
