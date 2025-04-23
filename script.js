@@ -138,7 +138,7 @@ function updateCounter() {
   const distance = EVENT_DATES.targetDate - now;
   
   if(distance < 0) {
-    window.location.href="  RealWebSite/index.html";
+    window.location.href="https://culturaetalento.it";
     return;
   }
 
